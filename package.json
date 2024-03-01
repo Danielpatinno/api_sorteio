@@ -12,7 +12,7 @@
     "mongoose": "^8.1.2"
   },  
   "engines":{
-    "node": "20.x"
+    "node": "18.x"
   },
   "scripts": {
     "start": "node ./index.js",
