@@ -10,7 +10,22 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // config cors
-app.use(cors({credentials:true, origin:"https://app-sorteio4.netlify.app"}))
+const whiteList = ["https://app-sorteio4.netlify.app", 'http://localhost:5173']
+
+const corsOptions = {
+  credentials: true,
+  origin: function(origin, callback) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions))
+
+// app.use(cors({credentials:true, origin:"https://app-sorteio4.netlify.app"}))
 
 // rotas
 const router = require("./routes/Router")
