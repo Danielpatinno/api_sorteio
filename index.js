@@ -10,8 +10,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // config cors
-app.use(cors({credentials:true, origin:"https://app-sorteio4.netlify.app"}))
-
+app.use(cors({credentials:true, origin:"http://localhost:5173"}))
+// "https://app-sorteio4.netlify.app"
 // rotas
 const router = require("./routes/Router")
 app.use(router)
