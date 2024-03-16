@@ -145,7 +145,6 @@ const deleteAdm = async(req, res) => {
    const adm = await Adm.findByIdAndDelete(id)
 
    res.status(200).json({
-       id: adm._id,
        message: "Administrador excluido com sucesso."
    })
 

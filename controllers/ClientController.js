@@ -15,10 +15,7 @@ const buyNumbers = async(req, res) => {
         return;
     }
 
-    res.status(201).json({
-        _id: newClient._id,
-        newClient
-    })
+    res.status(201).json(newClient)
 
 }
 

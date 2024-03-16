@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require("path");
 const cors = require("cors")
 
 const app = express()
@@ -10,9 +11,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // config cors
-app.use(cors({credentials:true, origin:"http://localhost:5173"}))
-
+app.use(cors({credentials:true, origin:"https://app-sorteio4.netlify.app"}))
+// http://localhost:5173
 // "https://app-sorteio4.netlify.app"
+
+// uploads
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 
 // rotas
 const router = require("./routes/Router")
