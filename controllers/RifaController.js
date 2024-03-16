@@ -1,27 +1,34 @@
 const Rifa = require('../models/Rifa')
 
 const registerRifa = async(req, res) => {
-    const rifaImage = req.file.filename
+    try {
+      const rifaImage = req.file.filename
 
-    const existingRifa = await Rifa.findOne();
+      const existingRifa = await Rifa.findOne();
 
-    if (existingRifa) {
+      if (existingRifa) {
         return res.status(422).json({
-            errors: ['Já existe uma rifa cadastrada.']
+          errors: ['Já existe uma rifa cadastrada.']
         });
-    }
+      }
 
-    const newRifa = await Rifa.create({
+      const newRifa = await Rifa.create({
         rifaImage
-    })
+      })
 
-    if(!newRifa) {
+      if(!newRifa) {
         res.status(422).json({
-            errors: ['Houve um problema, tente novamente mais tarde.']
+          errors: ['Houve um problema, tente novamente mais tarde.']
         })
-    }
+      }
 
-    res.status(201).json(newRifa)
+      res.status(201).json(newRifa)        
+
+      } catch (error) {
+        return res.status(500).json({
+          errors: ['Erro interno do servidor.']
+      });
+    }
 }
 
 const getRifa = async(req, res) => {
