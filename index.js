@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // config cors
-app.use(cors({credentials:true, origin:"https://app-sorteio4.netlify.app"}))
+app.use(cors({credentials:true, origin:"https://rifa-tupperware.netlify.app"}))
 
 // uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
