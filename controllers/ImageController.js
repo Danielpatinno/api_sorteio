@@ -8,7 +8,7 @@ const s3 = new AWS.S3({
 })
 
 //Multer para upload de arquivo
-const upload = multer({ dest: 'uploads/' })
+// const upload = multer({ dest: 'uploads/' })
 
 // Post Image
 const registerImageMais =  (req, res) => {
@@ -132,7 +132,7 @@ const deleteImageMais = (req, res) => {
 
 module.exports = {
   registerImageMais,
-  upload,
+  // upload,
   getImageMais,
   deleteImageMais
 }
