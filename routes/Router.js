@@ -49,7 +49,7 @@ router.get("/adm/:id", getAdmById)
 router.delete("/deleteAdm/:id", deleteAdm)
 
 // Image
-router.post('/registerImage', registerImageMais)
+router.post('/registerImage', upload.single('image'), registerImageMais)
 router.get('/getImage', getImageMais)
 router.delete('/deleteImage', deleteImageMais)
 
