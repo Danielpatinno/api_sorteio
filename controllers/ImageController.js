@@ -3,8 +3,8 @@ const AWS = require("aws-sdk")
 const fs = require('fs')
 
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAZQ3DR65EEOQGFA42',
-  secretAccessKey: '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',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 })
 
 //Multer para upload de arquivo
@@ -19,7 +19,7 @@ const registerImageMais =  (req, res) => {
   }
 
   const params = {
-    Bucket: 'image-sorteio',
+    Bucket: process.env.AWS_BUCKET_NAME,
   };
 
   s3.listObjectsV2(params, (err, data) => {
@@ -33,7 +33,7 @@ const registerImageMais =  (req, res) => {
     }
 
     const uploadParams = {
-      Bucket: 'image-sorteio',
+      Bucket: process.env.AWS_BUCKET_NAME,
       Key: file.originalname,
       Body: fs.createReadStream(file.path)
     };
@@ -54,7 +54,7 @@ const registerImageMais =  (req, res) => {
 
 // Get Image
 const getImageMais = (req, res) => {
-  const bucketName = 'image-sorteio';
+  const bucketName = process.env.AWS_BUCKET_NAME;
   const params = {
     Bucket: bucketName,
   }
@@ -98,7 +98,7 @@ const getImageMais = (req, res) => {
 // Delete Image
 const deleteImageMais = (req, res) => {
   const paramsList = {
-    Bucket: 'image-sorteio',
+    Bucket: process.env.AWS_BUCKET_NAME,
   };
 
   s3.listObjectsV2(paramsList, (err, data) => {
@@ -115,7 +115,7 @@ const deleteImageMais = (req, res) => {
     const imageKey = data.Contents[0].Key;
 
     const paramsDelete = {
-      Bucket: 'image-sorteio',
+      Bucket: process.env.AWS_BUCKET_NAME,
       Key: imageKey,
     };
 
