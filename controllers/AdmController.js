@@ -9,9 +9,9 @@ const jwtSecret = "mysecretesorteio"
 
 // Generate user token
 const generateToken = (id) => {
-    return jwt.sign({id}, jwtSecret, {
-        expiresIn: '10d'
-    })
+  return jwt.sign({id}, jwtSecret, {
+    expiresIn: '10d' 
+  })
 }
 
 // Cadastro manager
@@ -23,10 +23,10 @@ const registerAdm = async(req, res) => {
     const adm = await Adm.findOne({email})
 
     if(adm) {
-        res.status(422).json({
-            errors: ['Você já é um administrador.']
-        })
-        return
+      res.status(422).json({
+        errors: ['Você já é um administrador.']
+      })
+      return
     }
 
     // Gerar password hash
@@ -82,6 +82,15 @@ const login = async(req, res) => {
     })
 }
 
+const getAdm = async(req, res) => {
+  const Adms = await Adm.find()
+
+  res.status(200).json({
+    adm: Adms
+  })
+
+}
+
 const getAdmById = async(req, res) => {
   const { id } = req.params
 
@@ -94,15 +103,19 @@ const getAdmById = async(req, res) => {
     return
   }
 
-  res.status(200).json(adm)
+  res.status(200).json({
+    name: adm.name,
+    email: adm.email,
+    password: adm.password
+  })
 
 }
 
-const updateAdm = async(req, res) => {
-    const { name, email, password } = req.body
+const updateAdm = async (req, res) => {
+    const { password } = req.body;
 
     try {
-        const { id } = req.params
+        const { id } = req.params;
         const adm = await Adm.findById(id);
 
         if (!adm) {
@@ -111,15 +124,15 @@ const updateAdm = async(req, res) => {
             });
         }
 
-        if (name) {
-            adm.name = name;
-        }
-
-        if (email) {
-            adm.email = email;
-        }
-
         if (password) {
+            const isPasswordMatch = await bcrypt.compare(password, adm.password);
+
+            if (isPasswordMatch) {
+                return res.status(400).json({
+                    errors: ['A nova senha não pode ser igual à anterior.']
+                });
+            }
+
             const salt = await bcrypt.genSalt();
             const passwordHash = await bcrypt.hash(password, salt);
             adm.password = passwordHash;
@@ -129,7 +142,7 @@ const updateAdm = async(req, res) => {
 
         return res.status(200).json({
             adm,
-            message: 'Dados atualizados com sucesso.'
+            message: 'Senha atualizada com sucesso.'
         });
     } catch (error) {
         console.error(error);
@@ -137,7 +150,8 @@ const updateAdm = async(req, res) => {
             errors: ['Erro interno do servidor.']
         });
     }
-} 
+};
+
 
 const deleteAdm = async(req, res) => {
    const { id } = req.params
@@ -153,6 +167,7 @@ const deleteAdm = async(req, res) => {
 module.exports = {
     registerAdm,
     login,
+    getAdm,
     updateAdm,
     getAdmById,
     deleteAdm

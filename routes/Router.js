@@ -2,18 +2,12 @@ const express = require('express')
 const router = express()
 
 const {
-  upload,
-  deleteImageMais,
-  registerImageMais,
-  getImageMais
-} = require("../controllers/ImageController")
-
-const {
   registerAdm,
   login,
   updateAdm,
   getAdmById,
-  deleteAdm
+  deleteAdm,
+  getAdm
 } = require('../controllers/AdmController')
 
 const {
@@ -46,11 +40,8 @@ router.post('/registerAdm',admCreateValidation(), validate, registerAdm)
 router.post('/loginAdm', admLoginValidation(), validate, login)
 router.put('/updateAdm/:id', admUpdateValidation(), validate, updateAdm)
 router.get("/adm/:id", getAdmById)
+router.get('/adms', getAdm)
 router.delete("/deleteAdm/:id", deleteAdm)
 
-// Image
-router.post('/registerImage', upload.single('image'), registerImageMais)
-router.get('/getImage', getImageMais)
-router.delete('/deleteImage', deleteImageMais)
 
 module.exports = router
