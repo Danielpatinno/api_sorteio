@@ -18,6 +18,7 @@ const {
   updateClient,
   deleteAllClients
 } = require("../controllers/ClientController")
+const { gravarArrayNumber, getArrayNumber, updateArrayNumber } = require('../controllers/SorteioController')
 
 const {
   admCreateValidation,
@@ -43,5 +44,7 @@ router.get("/adm/:id", getAdmById)
 router.get('/adms', getAdm)
 router.delete("/deleteAdm/:id", deleteAdm)
 
-
+router.post("/saveNumber", gravarArrayNumber)
 module.exports = router
+router.get("/getNumber", getArrayNumber)
+router.put("/updateNumber", updateArrayNumber)

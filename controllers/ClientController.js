@@ -48,7 +48,6 @@ const deleteAllClients = async(req, res) => {
         error: error.message
     })
   }
-
 }
 
 // Deletar cliente
