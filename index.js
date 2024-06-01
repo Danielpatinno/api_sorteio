@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // config cors
-app.use(cors({credentials:true, origin:"https://rifa-tupperware.netlify.app"}))
+app.use(cors({credentials:true, origin:"https://appsorteio.netlify.app/"}))
 // app.use(cors({credentials:true, origin:"http://localhost:5173"}))
 
 // uploads
